@@ -2,7 +2,7 @@ from settings import *
 from meshes.base_mesh import BaseMesh
 
 class QuadMesh(BaseMesh):
-    def __init__(self, app):
+    def __init__(self, app, world_position):
         super().__init__()
 
         self.app = app
@@ -11,13 +11,19 @@ class QuadMesh(BaseMesh):
 
         self.vbo = '3f 3f'
         self.attrs = ('in_position', 'in_colour')
-        self.vao = self.get_vao()
+        self.vao = self.get_vao(world_position)
 
-    def get_vertex_data(self):
-        vertices = np.array([
-            (0.5, 0.5, 0.0), (-0.5, 0.5, 0.0), (-0.5, -0.5, 0.0),
-            (0.5, 0.5, 0.0), (-0.5, -0.5, 0.0), (0.5, -0.5, 0.0)
-        ], dtype=np.float32)
+    def get_vertex_data(self, world_position):
+        offsetVertices = [
+            (x + world_position.x, y + world_position.y, z + world_position.z)
+            for x, y, z in [
+                (0.5, 0.5, 0.0), (-0.5, 0.5, 0.0), (-0.5, -0.5, 0.0),
+                (0.5, 0.5, 0.0), (-0.5, -0.5, 0.0), (0.5, -0.5, 0.0)
+            ]
+        ]
+
+        vertices = np.array(offsetVertices, dtype=np.float32)
+
         colours = np.array([
             (0, 1, 0), (1, 0, 0), (1, 1, 0),
             (0, 1, 0), (1, 1, 0), (0, 0, 1)
