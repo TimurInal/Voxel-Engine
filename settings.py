@@ -22,4 +22,5 @@ PLAYER_POS = glm.vec3(0, 0, 1)
 MOUSE_SENSITIVITY = 0.002
 
 # colours
-BG_COLOUR = glm.vec3(0.1, 0.16, 0.25)
+BG_COLOUR = glm.vec3(0.4745, 0.6275, 1.0)
+LIGHT_COLOUR = glm.vec3(255, 235, 200)

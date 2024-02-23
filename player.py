@@ -1,6 +1,7 @@
 import pygame as pg
 from camera import Camera
 from settings import *
+import input_manager as im
 
 class Player(Camera):
     def __init__(self, app, position=PLAYER_POS, yaw=-90, pitch=0):
@@ -20,17 +21,16 @@ class Player(Camera):
             self.rotate_pitch(delta_y=mouse_dy * MOUSE_SENSITIVITY)
 
     def keyboard_control(self):
-        key_state = pg.key.get_pressed()
         vel = PLAYER_SPEED * self.app.delta_time
-        if key_state[pg.K_w]:
+        if im.get_key(pg.K_w):
             self.move_forward(vel)
-        if key_state[pg.K_s]:
+        if im.get_key(pg.K_s):
             self.move_back(vel)
-        if key_state[pg.K_d]:
+        if im.get_key(pg.K_d):
             self.move_right(vel)
-        if key_state[pg.K_a]:
+        if im.get_key(pg.K_a):
             self.move_left(vel)
-        if key_state[pg.K_q]:
+        if im.get_key(pg.K_LCTRL):
             self.move_down(vel)
-        if key_state[pg.K_e]:
+        if im.get_key(pg.K_SPACE):
             self.move_up(vel)

@@ -3,13 +3,15 @@ from glm import vec3
 from settings import *
 from meshes.base_mesh import BaseMesh
 
+colour = (1, 1, 1)
+
 class CubeMesh(BaseMesh):
     def __init__(self, app, world_position):
         super().__init__()
 
         self.app = app
         self.ctx = app.ctx
-        self.program = app.shader_program.quad
+        self.program = app.shader_program.cube
 
         self.vbo = '3f 3f'
         self.attrs = ('in_position', 'in_colour')
@@ -50,23 +52,23 @@ class CubeMesh(BaseMesh):
         vertices = np.array(offsetVertices, dtype=np.float32)
 
         colours = np.array([
-            (1, 0, 0), (1, 0, 0), (1, 0, 0),
-            (1, 0, 0), (1, 0, 0), (1, 0, 0),
+            colour, colour, colour,
+            colour, colour, colour,
 
-            (1, 1, 0), (1, 1, 0), (1, 1, 0),
-            (1, 1, 0), (1, 1, 0), (1, 1, 0),
+            colour, colour, colour,
+            colour, colour, colour,
 
-            (0, 1, 0), (0, 1, 0), (0, 1, 0),
-            (0, 1, 0), (0, 1, 0), (0, 1, 0),
+            colour, colour, colour,
+            colour, colour, colour,
 
-            (0, 1, 1), (0, 1, 1), (0, 1, 1),
-            (0, 1, 1), (0, 1, 1), (0, 1, 1),
+            colour, colour, colour,
+            colour, colour, colour,
 
-            (0, 0, 1), (0, 0, 1), (0, 0, 1),
-            (0, 0, 1), (0, 0, 1), (0, 0, 1),
+            colour, colour, colour,
+            colour, colour, colour,
 
-            (0, 0, 0), (0, 0, 0), (0, 0, 0),
-            (0, 0, 0), (0, 0, 0), (0, 0, 0)
+            colour, colour, colour,
+            colour, colour, colour
         ], dtype=np.float32)
         vertex_data = np.hstack((vertices, colours))
         return vertex_data
