@@ -4,6 +4,7 @@ import pygame as pg
 import sys
 from shader_program import ShaderProgram
 from scene import Scene
+from player import Player
 
 true = True # These are here because I can't be bothered to type true and false with capitals
 false = False
@@ -26,20 +27,25 @@ class VoxelEngine:
         self.delta_time = 0
         self.time = 0
 
+        pg.event.set_grab(true)
+        pg.mouse.set_visible(false)
+
         self.is_running = true
         self.on_init()
 
     def on_init(self):
+        self.player = Player(self)
         self.shader_program = ShaderProgram(self)
         self.scene = Scene(self)
 
     def update(self):
+        self.player.update()
         self.shader_program.update()
         self.scene.update()
 
         self.delta_time = self.clock.tick()
         self.time = pg.time.get_ticks() * 0.001
-        pg.display.set_caption(f'{self.clock.get_fps() : .0f}')
+        pg.display.set_caption(f'{self.clock.get_fps(): .0f}')
 
     def render(self):
         self.ctx.clear(color=BG_COLOUR)
