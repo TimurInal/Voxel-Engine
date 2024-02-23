@@ -30,7 +30,7 @@ class Player(Camera):
             self.move_right(vel)
         if im.get_key(pg.K_a):
             self.move_left(vel)
-        if im.get_key(pg.K_LCTRL):
+        if im.get_key(pg.K_q):
             self.move_down(vel)
-        if im.get_key(pg.K_SPACE):
+        if im.get_key(pg.K_e):
             self.move_up(vel)

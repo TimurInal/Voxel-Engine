@@ -16,11 +16,12 @@ class BaseMesh:
 
     def get_vertex_data(self, world_position) -> np.array: ...
 
-    def get_vao(self, world_position):
-        vertex_data = self.get_vertex_data(world_position)
+    def get_vao(self, world_position, render_sides):
+        vertex_data = self.get_vertex_data(world_position, render_sides)
         vbo = self.ctx.buffer(vertex_data)
         vao = self.ctx.simple_vertex_array(self.program, vbo, *self.attrs)
         return vao
 
     def render(self):
-        self.vao.render()
+        if self.vao is not None:
+            self.vao.render()
