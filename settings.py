@@ -6,14 +6,18 @@ import math
 # resolution
 WIN_RES = glm.vec2(1600, 900)
 
+# ray casting
+MAX_RAY_DST = 6
+
 # chunk
-CHUNK_SIZE = 32
+CHUNK_SIZE = 48
 H_CHUNK_SIZE = CHUNK_SIZE // 2
 CHUNK_AREA = CHUNK_SIZE * CHUNK_SIZE
 CHUNK_VOL = CHUNK_AREA * CHUNK_SIZE
+CHUNK_SPHERE_RADIUS = H_CHUNK_SIZE * math.sqrt(3)
 
 # world
-WORLD_W, WORLD_H = 3, 3
+WORLD_W, WORLD_H = 20, 2
 WORLD_D = WORLD_W
 WORLD_AREA = WORLD_W * WORLD_D
 WORLD_VOL = WORLD_AREA * WORLD_H
@@ -32,10 +36,24 @@ FAR = 2000.0
 PITCH_MAX = glm.radians(89)
 
 # player
-PLAYER_SPEED = 0.005
+PLAYER_SPEED = 0.005 * 2
 PLAYER_ROT_SPEED = 0.003
 PLAYER_POS = glm.vec3(CENTER_XZ, WORLD_H * CHUNK_SIZE, CENTER_XZ)
 MOUSE_SENSITIVITY = 0.002
 
 # colors
-BG_COLOR = glm.vec3(0.6, 0.69, 1.0)
+BG_COLOR = glm.vec3(0.545, 0.659, 1.0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
