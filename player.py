@@ -9,6 +9,8 @@ class Player(Camera):
         self.app = app
         super().__init__(position, yaw, pitch)
 
+        self.speed = PLAYER_SPEED
+
     def update(self):
         self.keyboard_control()
         self.mouse_control()
@@ -18,10 +20,19 @@ class Player(Camera):
         # adding and removing voxels with clicks
         if event.type == pg.MOUSEBUTTONDOWN:
             voxel_handler = self.app.scene.world.voxel_handler
-            if event.button == 1:
-                voxel_handler.remove_voxel()
-            if event.button == 3:
-                voxel_handler.add_voxel()
+            try:
+                if event.button == 1:
+                    voxel_handler.remove_voxel()
+                if event.button == 3:
+                    voxel_handler.add_voxel()
+            except AttributeError:
+                print('Could not add block.')
+                return
+        if im.key_down(pg.K_LSHIFT, event):
+            self.speed = 0.002 * 20
+        if im.key_up(pg.K_LSHIFT, event):
+            self.speed = 0.002
+
 
     def mouse_control(self):
         mouse_dx, mouse_dy = pg.mouse.get_rel()
@@ -31,7 +42,7 @@ class Player(Camera):
             self.rotate_pitch(delta_y=mouse_dy * MOUSE_SENSITIVITY)
 
     def keyboard_control(self):
-        vel = PLAYER_SPEED * self.app.delta_time
+        vel = self.speed * self.app.delta_time
         if im.key_pressed(pg.K_w):
             self.move_forward(vel)
         if im.key_pressed(pg.K_s):

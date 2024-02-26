@@ -1,7 +1,8 @@
 from settings import *
+import sys
 import moderngl as mgl
 import pygame as pg
-import sys
+import input_manager as im
 from shader_program import ShaderProgram
 from scene import Scene
 from player import Player
@@ -56,6 +57,10 @@ class VoxelEngine:
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 self.is_running = False
+            if im.key_down(pg.K_f, event):
+                self.ctx.wireframe = True
+            if im.key_up(pg.K_f, event):
+                self.ctx.wireframe = False
             self.player.handle_event(event=event)
 
     def run(self):

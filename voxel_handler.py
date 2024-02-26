@@ -16,7 +16,7 @@ class VoxelHandler:
         self.voxel_normal = None
 
         self.interaction_mode = 0  # 0: remove voxel   1: add voxel
-        self.new_voxel_id = 1  # 255 is an unbreakable block
+        self.new_voxel_id = 8  # 1 is an unbreakable block. See texture atlas for all the blocks types
 
     def add_voxel(self):
         if self.voxel_id:
@@ -58,7 +58,7 @@ class VoxelHandler:
             self.rebuild_adj_chunk((wx, wy, wz + 1))
 
     def remove_voxel(self):
-        if self.voxel_id and self.voxel_id != 255:
+        if self.voxel_id and self.voxel_id != 1:
             self.chunk.voxels[self.voxel_index] = 0
 
             self.chunk.mesh.rebuild()
