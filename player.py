@@ -3,6 +3,7 @@ from camera import Camera
 from settings import *
 import input_manager as im
 
+
 class Player(Camera):
     def __init__(self, app, position=PLAYER_POS, yaw=-90, pitch=0):
         self.app = app
@@ -22,15 +23,63 @@ class Player(Camera):
 
     def keyboard_control(self):
         vel = PLAYER_SPEED * self.app.delta_time
-        if im.get_key(pg.K_w):
+        if im.key_pressed(pg.K_w):
             self.move_forward(vel)
-        if im.get_key(pg.K_s):
+        if im.key_pressed(pg.K_s):
             self.move_back(vel)
-        if im.get_key(pg.K_d):
+        if im.key_pressed(pg.K_d):
             self.move_right(vel)
-        if im.get_key(pg.K_a):
+        if im.key_pressed(pg.K_a):
             self.move_left(vel)
-        if im.get_key(pg.K_q):
-            self.move_down(vel)
-        if im.get_key(pg.K_e):
+        if im.key_pressed(pg.K_e):
             self.move_up(vel)
+        if im.key_pressed(pg.K_q):
+            self.move_down(vel)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

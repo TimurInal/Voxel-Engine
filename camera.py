@@ -1,5 +1,6 @@
 from settings import *
 
+
 class Camera:
     def __init__(self, position, yaw, pitch):
         self.position = glm.vec3(position)
@@ -42,14 +43,56 @@ class Camera:
     def move_right(self, velocity):
         self.position += self.right * velocity
 
+    def move_up(self, velocity):
+        self.position += self.up * velocity
+
+    def move_down(self, velocity):
+        self.position -= self.up * velocity
+
     def move_forward(self, velocity):
         self.position += self.forward * velocity
 
     def move_back(self, velocity):
         self.position -= self.forward * velocity
 
-    def move_up(self, velocity):
-        self.position += self.up * velocity
 
-    def move_down(self, velocity):
-        self.position -= self.up * velocity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

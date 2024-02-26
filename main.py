@@ -5,9 +5,8 @@ import sys
 from shader_program import ShaderProgram
 from scene import Scene
 from player import Player
+from textures import Textures
 
-true = True # These are here because I can't be bothered to type true and false with capitals
-false = False
 
 class VoxelEngine:
     def __init__(self):
@@ -27,13 +26,14 @@ class VoxelEngine:
         self.delta_time = 0
         self.time = 0
 
-        pg.event.set_grab(true)
-        pg.mouse.set_visible(false)
+        pg.event.set_grab(True)
+        pg.mouse.set_visible(False)
 
-        self.is_running = true
+        self.is_running = True
         self.on_init()
 
     def on_init(self):
+        self.textures = Textures(self)
         self.player = Player(self)
         self.shader_program = ShaderProgram(self)
         self.scene = Scene(self)
@@ -45,17 +45,17 @@ class VoxelEngine:
 
         self.delta_time = self.clock.tick()
         self.time = pg.time.get_ticks() * 0.001
-        pg.display.set_caption(f'{self.clock.get_fps(): .0f} | {self.player.position}')
+        pg.display.set_caption(f'{self.clock.get_fps() :.0f}')
 
     def render(self):
-        self.ctx.clear(color=BG_COLOUR)
+        self.ctx.clear(color=BG_COLOR)
         self.scene.render()
         pg.display.flip()
 
     def handle_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
-                self.is_running = false
+                self.is_running = False
 
     def run(self):
         while self.is_running:
@@ -66,6 +66,6 @@ class VoxelEngine:
         sys.exit()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = VoxelEngine()
     app.run()
