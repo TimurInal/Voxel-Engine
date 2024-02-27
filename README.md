@@ -30,7 +30,7 @@ This class represents a chunk, a 3D array of voxels. It includes logic for gener
 This class collaborates with the `Chunk` and `ChunkSaver` classes to manage the game world. 
 
 ## Usage
-To use VoxelEngine, you simply need to create an instance of the VoxelEngine object, and then call its `run` method.
+To use the engine, you simply need to create an instance of the `VoxelEngine` object, and then call its `run` method.
 ```python
 from core import VoxelEngine
 
@@ -40,6 +40,8 @@ if __name__ == '__main__':
 ```
 
 ## Installation
+
+**It is strongly recommended to ensure your graphics drivers are up-to-date to ensure that there are no issues with ModernGL**
 
 To install the required packages for this project, you can use `pip`:
 
@@ -56,6 +58,12 @@ pip install moderngl
 pip install numba numpy
 ```
 
-<hr>
+## Future Updates
+
+<li> Infinite terrain
+<li> Player physics
+<li> Player hotbar
+
+<br><hr><br>
 
 Please note that this engine was created using Python 3.12.1 and tested on Windows 11. So, it's more likely to perform best under similar conditions. Although it should work on most operating systems and Python 3.x versions, there may be slight variations or issues based on the development environment.
