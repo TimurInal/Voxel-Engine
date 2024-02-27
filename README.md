@@ -8,7 +8,7 @@ The engine supports multiple features necessary for a flexible gaming platform. 
 - Voxel based terrain generation.
 - Efficient voxel handling to render large, detailed terrains.
   
-The engine uses [Pygame](https://www.pygame.org/news) as a foundation for rendering and event handling, along with [ModernGL](https://moderngl.readthedocs.io/en/latest/) for efficient graphics rendering.
+The engine uses [Pygame](https://www.pygame.org/) as a foundation for rendering and event handling, along with [ModernGL](https://moderngl.readthedocs.io/en/latest/) for efficient graphics rendering.
 
 ## Key Classes
 Several key classes are involved in running the engine, including:
