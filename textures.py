@@ -32,7 +32,7 @@ class Textures:
             texture = self.app.ctx.texture_array(
                 size=(texture.get_width(), texture.get_height() // num_layers, num_layers),
                 components=4,
-                data=texture.get_buffer().raw
+                data=pg.image.tostring(texture, 'RGBA', False)
             )
         else:
             texture = self.ctx.texture(

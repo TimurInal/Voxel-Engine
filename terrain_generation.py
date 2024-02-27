@@ -10,31 +10,34 @@ random.seed(SEED)
 # TODO: Add procedural generation.
 @njit
 def get_height(x, z):
-    # island mask
-    island = 1 / (pow(0.0025 * math.hypot(x - CENTER_XZ, z - CENTER_XZ), 20) + 0.0001)
-    island = min(island, 1)
+    if WORLD_TYPE == WorldType.NORMAL:
+        # island mask
+        island = 1 / (pow(0.0025 * math.hypot(x - CENTER_XZ, z - CENTER_XZ), 20) + 0.0001)
+        island = min(island, 1)
 
-    # amplitude
-    a1 = CENTER_Y
-    a2, a4, a8 = a1 * 0.5, a1 * 0.25, a1 * 0.125
+        # amplitude
+        a1 = CENTER_Y
+        a2, a4, a8 = a1 * 0.5, a1 * 0.25, a1 * 0.125
 
-    # frequency
-    f1 = 0.005
-    f2, f4, f8 = f1 * 2, f1 * 4, f1 * 8
+        # frequency
+        f1 = 0.005
+        f2, f4, f8 = f1 * 2, f1 * 4, f1 * 8
 
-    # if noise2(0.1 * x, 0.1 * z) < 0.75:
-    #    a1 /= 1.02
+        # if noise2(0.1 * x, 0.1 * z) < 0.75:
+        #    a1 /= 1.02
 
-    height = 0
-    height += noise2(x * f1, z * f1) * a1 + a1
-    height += noise2(x * f2, z * f2) * a2 - a2
-    height += noise2(x * f4, z * f4) * a4 + a4
-    height += noise2(x * f8, z * f8) * a8 - a8
+        height = 0
+        height += noise2(x * f1, z * f1) * a1 + a1
+        height += noise2(x * f2, z * f2) * a2 - a2
+        height += noise2(x * f4, z * f4) * a4 + a4
+        height += noise2(x * f8, z * f8) * a8 - a8
 
-    height = max(height,  noise2(x * f8, z * f8) + 2)
-    height *= island
+        height = max(height, noise2(x * f8, z * f8) + 2)
+        height *= island
 
-    return int(height)
+        return int(height)
+    elif WORLD_TYPE == WorldType.FLAT:
+        return 2
 
 
 @njit
@@ -80,7 +83,9 @@ def place_tree(voxels, x, y, z, voxel_id):
 def set_voxel_id(voxels, x, y, z, wx, wy, wz, world_height):
     voxel_id = 0
 
-    if wy < world_height - 1:
+    if WORLD_TYPE == WorldType.FLAT and wy > 0:
+        voxel_id = GRASS_BLOCK
+    elif wy < world_height - 1:
         if noise3(wx * 0.09, wy * 0.09, wz * 0.09) > 0 and noise2(wx * 0.1, wz * 0.1) * 3 + 3 <wy < world_height - 10:
             voxel_id = 0
         else:
@@ -96,7 +101,7 @@ def set_voxel_id(voxels, x, y, z, wx, wy, wz, world_height):
         ry = wy - rng
         if SNOW_LVL <= ry < world_height:
             voxel_id = SNOW
-        elif STONE_LVL <= ry < SNOW_LVL:
+        elif STONE_LVL * WORLD_H <= ry < SNOW_LVL:
             rng_ore = int(500 * random.random())
             if rng_ore <= IRON_CHANCE:
                 voxel_id = IRON_ORE
@@ -116,5 +121,5 @@ def set_voxel_id(voxels, x, y, z, wx, wy, wz, world_height):
 
     voxels[get_index(x, y, z)] = voxel_id
 
-    if wy < DIRT_LVL:
+    if WORLD_TYPE == 1 and wy < DIRT_LVL:
         place_tree(voxels, x, y, z, voxel_id)

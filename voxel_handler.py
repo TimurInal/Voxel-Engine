@@ -16,7 +16,7 @@ class VoxelHandler:
         self.voxel_normal = None
 
         self.interaction_mode = 0  # 0: remove voxel   1: add voxel
-        self.new_voxel_id = 8  # 1 is an unbreakable block. See texture atlas for all the blocks types
+        self.new_voxel_id = LIGHT  # 1 is an unbreakable block. See texture atlas for all the blocks types
 
     def add_voxel(self):
         if self.voxel_id:

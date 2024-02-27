@@ -1,5 +1,10 @@
 import os
 import time
+from enum import Enum
+
+class WorldType(Enum):
+    NORMAL = 1
+    FLAT = 2
 
 from numba import njit
 import numpy as np
@@ -13,6 +18,7 @@ WIN_RES = glm.vec2(1600, 900)
 
 # world generation
 SEED = 0
+WORLD_TYPE = WorldType.FLAT
 
 # ray casting
 MAX_RAY_DST = 6
@@ -64,6 +70,7 @@ COBBLESTONE = 8
 SAND = 9
 IRON_ORE = 10
 COAL_ORE = 11
+LIGHT = 12
 
 # terrain levels
 SNOW_LVL = 68
