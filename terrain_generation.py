@@ -4,6 +4,9 @@ from random import random
 from settings import *
 
 
+random.seed(SEED)
+
+
 # TODO: Add procedural generation.
 @njit
 def get_height(x, z):

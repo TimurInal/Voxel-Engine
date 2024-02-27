@@ -1,3 +1,4 @@
+from chunk_saver import ChunkSaver
 from settings import *
 import sys
 import moderngl as mgl
@@ -7,6 +8,7 @@ from shader_program import ShaderProgram
 from scene import Scene
 from player import Player
 from textures import Textures
+from ui_renderer import UIRenderer
 
 
 class VoxelEngine:
@@ -17,7 +19,7 @@ class VoxelEngine:
         pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK, pg.GL_CONTEXT_PROFILE_CORE)
         pg.display.gl_set_attribute(pg.GL_DEPTH_SIZE, 24)
 
-        pg.display.set_mode(WIN_RES, flags=pg.OPENGL | pg.DOUBLEBUF)
+        self.screen = pg.display.set_mode(WIN_RES, flags=pg.OPENGL | pg.DOUBLEBUF)
         self.ctx = mgl.create_context()
 
         self.ctx.enable(flags=mgl.DEPTH_TEST | mgl.CULL_FACE | mgl.BLEND)
@@ -38,6 +40,7 @@ class VoxelEngine:
         self.player = Player(self)
         self.shader_program = ShaderProgram(self)
         self.scene = Scene(self)
+        self.ui_renderer = UIRenderer(self.screen)
 
     def update(self):
         self.player.update()
@@ -51,6 +54,7 @@ class VoxelEngine:
     def render(self):
         self.ctx.clear(color=BG_COLOR)
         self.scene.render()
+        self.render_ui()
         pg.display.flip()
 
     def handle_events(self):
@@ -68,6 +72,16 @@ class VoxelEngine:
             self.handle_events()
             self.update()
             self.render()
+        self.quit(True)
+
+    def render_ui(self):
+        self.ui_renderer.draw_text("Hello, world!", 100, 100, 36, (0, 0, 0))  # Display text on the screen
+
+    def quit(self, save=False):
+        if save:
+            for chunk in self.scene.world.chunks:
+                if chunk.has_been_modified:
+                    ChunkSaver.save_chunk(chunk, PERSISTANT_FILE_PATH)
         pg.quit()
         sys.exit()
 

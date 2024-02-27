@@ -1,3 +1,4 @@
+import os
 import time
 
 from numba import njit
@@ -7,8 +8,8 @@ import math
 import random
 
 # resolution
-# WIN_RES = glm.vec2(1600, 900)
-WIN_RES = glm.vec2(1920, 1080)
+WIN_RES = glm.vec2(1600, 900)
+# WIN_RES = glm.vec2(1920, 1080)
 
 # world generation
 SEED = 0
@@ -24,7 +25,7 @@ CHUNK_VOL = CHUNK_AREA * CHUNK_SIZE
 CHUNK_SPHERE_RADIUS = H_CHUNK_SIZE * math.sqrt(3)
 
 # world
-WORLD_W, WORLD_H = 20, 2
+WORLD_W, WORLD_H = 2, 2
 WORLD_D = WORLD_W
 WORLD_AREA = WORLD_W * WORLD_D
 WORLD_VOL = WORLD_AREA * WORLD_H
@@ -78,3 +79,6 @@ COAL_CHANCE = 10
 TREE_PROBABILITY = 0.02
 TREE_WIDTH, TREE_HEIGHT = 4, 8
 TREE_H_WIDTH, TREE_H_HEIGHT = TREE_WIDTH // 2, TREE_HEIGHT // 2
+
+# saving
+PERSISTANT_FILE_PATH = os.path.join(os.getenv('LOCALAPPDATA'), 'Voxel Engine')

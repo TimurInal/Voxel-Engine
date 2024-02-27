@@ -2,6 +2,7 @@ from settings import *
 from meshes.chunk_mesh import ChunkMesh
 import random
 from terrain_generation import *
+from chunk_saver import ChunkSaver
 
 
 class Chunk:
@@ -13,6 +14,7 @@ class Chunk:
         self.voxels: np.array = None
         self.mesh: ChunkMesh = None
         self.is_empty = True
+        self.has_been_modified = False
 
         self.center = (glm.vec3(self.position) + 0.5) * CHUNK_SIZE
         self.is_on_frustum = self.app.player.frustum.is_on_frustum
@@ -26,6 +28,11 @@ class Chunk:
 
     def build_mesh(self):
         self.mesh = ChunkMesh(self)
+
+    def rebuild_mesh(self):
+        self.has_been_modified = True
+        self.mesh.rebuild()
+        ChunkSaver.save_chunk(self, PERSISTANT_FILE_PATH)
 
     def render(self):
         if not self.is_empty and self.is_on_frustum(self):
@@ -58,49 +65,3 @@ class Chunk:
                 for y in range(local_height):
                     wy = y + cy
                     set_voxel_id(voxels, x, y, z, wx, wy, wz, world_height)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
