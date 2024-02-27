@@ -32,6 +32,8 @@ This class collaborates with the `Chunk` and `ChunkSaver` classes to manage the 
 ## Usage
 To use VoxelEngine, you simply need to create an instance of the VoxelEngine object, and then call its `run` method.
 ```python
+from core import VoxelEngine
+
 if __name__ == '__main__':
   app = VoxelEngine()
   app.run()
