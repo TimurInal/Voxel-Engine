@@ -1,6 +1,6 @@
 # Voxel Engine
 
-The Voxel Engine project is a 3D game engine that uses voxel generation to render complex terrains and objects. 
+Simple voxel engine created in Python using ModernGL
 
 The engine supports multiple features necessary for a flexible gaming platform. These features include:
 
